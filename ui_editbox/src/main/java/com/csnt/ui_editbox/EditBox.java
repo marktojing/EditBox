@@ -1,6 +1,7 @@
 package com.csnt.ui_editbox;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.StringRes;
 
 
 /**
@@ -57,7 +61,6 @@ public class EditBox extends RelativeLayout {
         this.mContext=context;
         initView(context, attrs);
     }
-
     public EditBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext=context;
@@ -71,14 +74,6 @@ public class EditBox extends RelativeLayout {
      * @E-Mail: 528489389@qq.com
      */
     private void initView(Context mContext, AttributeSet attrs) {
-//        if (attrs != null) {
-//            TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.MyEditText);
-//            isShowClean = a.getBoolean(R.styleable.MyEditText_myEditTextShowClear, true);
-//            a.recycle();
-//            setPadding(0, 0, 0, 0);
-//            setBackgroundColor(Color.TRANSPARENT);
-//        }
-
         editText = new EditText(mContext, attrs);
         LayoutParams layoutParams = new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -168,5 +163,29 @@ public class EditBox extends RelativeLayout {
         final float scale = mContext.getResources()
                 .getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+    public void setText(CharSequence str){
+        editText.setText(str);
+    }
+    public void setText(@StringRes int resid){
+        editText.setText(getContext().getResources().getText(resid));
+    }
+    public void setHint(CharSequence str){
+        editText.setHint(str);
+    }
+    public void setHint(@StringRes int resid){
+        editText.setHint(getContext().getResources().getText(resid));
+    }
+    public void setTextColor(@ColorInt int color){
+        editText.setTextColor(color);
+    }
+    public void setTextColor( ColorStateList color){
+        editText.setTextColor(color);
+    }
+    public void setHintColor(@ColorInt int color){
+        editText.setHintTextColor(color);
+    }
+    public void setHintColor( ColorStateList color){
+        editText.setHintTextColor(color);
     }
 }
