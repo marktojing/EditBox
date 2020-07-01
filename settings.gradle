@@ -1,0 +1,3 @@
+rootProject.name='EditBox'
+include ':app'
+include ':ui_editbox'
