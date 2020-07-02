@@ -159,33 +159,111 @@ public class EditBox extends RelativeLayout {
 
         imageView.setVisibility(VISIBLE);
     }
-    private  int dip2px(float dpValue) {
+    private int dip2px(float dpValue) {
         final float scale = mContext.getResources()
                 .getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-    public void setText(CharSequence str){
+    private void setText(CharSequence str){
         editText.setText(str);
     }
-    public void setText(@StringRes int resid){
+    private void setText(@StringRes int resid){
         editText.setText(getContext().getResources().getText(resid));
     }
-    public void setHint(CharSequence str){
+    private void setHint(CharSequence str){
         editText.setHint(str);
     }
-    public void setHint(@StringRes int resid){
+    private void setHint(@StringRes int resid){
         editText.setHint(getContext().getResources().getText(resid));
     }
-    public void setTextColor(@ColorInt int color){
+    private void setTextColor(@ColorInt int color){
         editText.setTextColor(color);
     }
-    public void setTextColor( ColorStateList color){
+    private void setTextColor( ColorStateList color){
         editText.setTextColor(color);
     }
-    public void setHintColor(@ColorInt int color){
+    private void setHintColor(@ColorInt int color){
         editText.setHintTextColor(color);
     }
-    public void setHintColor( ColorStateList color){
+    private void setHintColor( ColorStateList color){
         editText.setHintTextColor(color);
     }
+    public static class Builder{
+        private CharSequence text;
+        private ColorStateList textColor;
+        private CharSequence hint;
+        private ColorStateList hintColor;
+        private int width=LayoutParams.MATCH_PARENT;
+        private int height=LayoutParams.MATCH_PARENT;
+        private Context mContext;
+        public Builder(Context context){
+            this.mContext=context;
+        };
+        public Builder setText(@StringRes int resId){
+            this.text=  mContext.getResources().getText(resId);
+            return this;
+        }
+        public Builder setText(CharSequence text){
+            this.text= text;
+            return this;
+        }
+        public Builder setHint(@StringRes int resId){
+            this.hint=  mContext.getResources().getText(resId);
+            return this;
+        }
+        public Builder setHint(CharSequence text){
+            this.hint= text;
+            return this;
+        }
+        public Builder setTextColor(@StringRes int colorId){
+            this.textColor= ColorStateList.valueOf(colorId);
+            return this;
+        }
+        public Builder setTextColor(ColorStateList color){
+            this.textColor= color;
+            return this;
+        }
+        public Builder setHintColor(@StringRes int colorId){
+            this.hintColor= ColorStateList.valueOf(colorId);
+            return this;
+        }
+        public Builder setHintColor(ColorStateList color){
+            this.hintColor= color;
+            return this;
+        }
+        public Builder setWidth(int width){
+            this.width=dip2px(width);
+            return this;
+        }
+        public Builder setHeight(int height){
+            this.height=dip2px(height);
+            return this;
+        }
+
+        private int dip2px(float dpValue) {
+            final float scale = mContext.getResources()
+                    .getDisplayMetrics().density;
+            return (int) (dpValue * scale + 0.5f);
+        }
+        public EditBox build(){
+            EditBox editBox = new EditBox(mContext);
+            LayoutParams layoutParams = new LayoutParams(width, height);
+            editBox.setLayoutParams(layoutParams);
+
+            if(text!=null){
+                editBox.setText(text);
+            }
+            if(textColor!=null){
+                editBox.setTextColor(textColor);
+            }
+            if(hint!=null){
+                editBox.setHint(hint);
+            }
+            if(hintColor!=null){
+                editBox.setHintColor(hintColor);
+            }
+            return editBox;
+        }
+    }
+
 }
